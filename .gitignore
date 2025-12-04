@@ -1,0 +1,88 @@
+# ================================================================= #
+# General & Secrets
+# ================================================================= #
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Environment variables - ignore all .env files except the example
+.env
+.env.*
+!.env.example
+
+# Local override configurations
+*.local.yaml
+*.local.yml
+docker-compose.override.yml
+docker-compose.dev.yml
+
+# Secret keys and certificates
+*.pem
+*.key
+*.crt
+*.p12
+
+# ================================================================= #
+# Language Specific & Caches
+# ================================================================= #
+# Node.js (for Frontend service)
+node_modules/
+.npm/
+.next/
+build/
+dist/
+coverage/
+.eslintcache
+
+# Java & Maven (for Backend services)
+target/
+pom.xml.tag
+pom.xml.next
+pom.xml.releaseBackup
+*.class
+*.jar
+*.war
+*.ear
+
+# Java runtime files
+hs_err_pid*
+replay_pid*
+
+# Maven wrapper cache
+.mvn/wrapper/maven-wrapper.jar
+
+# ================================================================= #
+# Tools & Frameworks
+# ================================================================= #
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+*.tfplan
+!terraform.tfvars.example
+
+# Jenkins & Docker
+jenkins_home/
+.docker/
+*.pid
+*.sock
+
+# Helm packaged charts
+**/charts/**/*.tgz
+
+# ================================================================= #
+# IDEs & OS
+# ================================================================= #
+# IDEs - ignore all, but keep extensions file for team consistency
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db

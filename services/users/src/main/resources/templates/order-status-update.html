@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FoodHub - Cập nhật đơn hàng</title>
+    <style>
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+        table { border-collapse: collapse !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5;">
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td bgcolor="#f4f4f5" align="center" style="padding: 40px 15px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    
+                    <!-- LOGO -->
+                    <tr>
+                        <td align="center" valign="top" style="padding: 0 0 20px 0;">
+                            <h1 style="color: #ea580c; font-size: 28px; font-weight: 800; margin: 0;">FoodHub</h1>
+                        </td>
+                    </tr>
+
+                    <!-- MAIN CARD -->
+                    <tr>
+                        <td bgcolor="#ffffff" align="center" style="padding: 40px 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                            
+                            <p style="color: #52525b; font-size: 16px; margin-bottom: 25px;">
+                                Xin chào <strong style="color: #18181b;" th:text="${userName}">Khách hàng</strong>,
+                            </p>
+
+                            <!-- STATUS BANNER: DYNAMIC CONTENT -->
+                            
+                            <!-- 1. ĐANG GIAO (SHIPPING) -->
+                            <div th:if="${status} == 'SHIPPING'" style="background-color: #f3e8ff; border: 1px solid #d8b4fe; border-radius: 12px; padding: 30px 20px; margin-bottom: 25px;">
+                                <h2 style="color: #7e22ce; margin: 0 0 10px 0; font-size: 22px; text-transform: uppercase;">Đang giao hàng 🚚</h2>
+                                <p style="color: #6b21a8; margin: 0; font-size: 15px;">Tài xế đang mang món ngon đến cho bạn. Hãy để ý điện thoại nhé!</p>
+                            </div>
+
+                            <!-- 2. HOÀN THÀNH (DELIVERED) -->
+                            <div th:if="${status} == 'DELIVERED'" style="background-color: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 12px; padding: 30px 20px; margin-bottom: 25px;">
+                                <h2 style="color: #047857; margin: 0 0 10px 0; font-size: 22px; text-transform: uppercase;">Giao thành công 🎉</h2>
+                                <p style="color: #065f46; margin: 0; font-size: 15px;">Cảm ơn bạn đã tin tưởng FoodHub. Chúc bạn ngon miệng!</p>
+                            </div>
+
+                            <!-- 3. ĐÃ HỦY (CANCELLED) -->
+                            <div th:if="${status} == 'CANCELLED'" style="background-color: #fef2f2; border: 1px solid #fca5a5; border-radius: 12px; padding: 30px 20px; margin-bottom: 25px;">
+                                <h2 style="color: #b91c1c; margin: 0 0 10px 0; font-size: 22px; text-transform: uppercase;">Đơn đã hủy ❌</h2>
+                                <p style="color: #991b1b; margin: 0; font-size: 15px;">Đơn hàng đã bị hủy. Vui lòng liên hệ CSKH nếu cần hỗ trợ.</p>
+                            </div>
+
+                            <!-- 4. ĐÃ DUYỆT (CONFIRMED) -->
+                            <div th:if="${status} == 'CONFIRMED'" style="background-color: #eff6ff; border: 1px solid #93c5fd; border-radius: 12px; padding: 30px 20px; margin-bottom: 25px;">
+                                <h2 style="color: #1d4ed8; margin: 0 0 10px 0; font-size: 22px; text-transform: uppercase;">Đã xác nhận ✅</h2>
+                                <p style="color: #1e40af; margin: 0; font-size: 15px;">Nhà hàng đã nhận đơn và đang bắt đầu chế biến.</p>
+                            </div>
+
+                            <!-- ORDER SUMMARY -->
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding: 15px 0; border-top: 1px solid #e4e4e7; border-bottom: 1px solid #e4e4e7;">
+                                        <p style="margin: 0; color: #71717a; font-size: 14px;">Đơn hàng <strong style="color: #18181b;" th:text="'#' + ${orderId}">#123</strong></p>
+                                        <p style="margin: 5px 0 0 0; font-size: 20px; font-weight: 700; color: #ea580c;" th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'">250.000 đ</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- ACTION BUTTON -->
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="center" style="padding-top: 30px;">
+                                        <a href="http://localhost:3000/orders" style="background-color: #18181b; color: #ffffff; display: inline-block; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px;">Xem chi tiết đơn hàng</a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- FOOTER -->
+                    <tr>
+                        <td style="padding: 30px 0; color: #a1a1aa; font-size: 12px; text-align: center;">
+                            <p style="margin: 0;">Đây là email tự động từ hệ thống FoodHub.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
