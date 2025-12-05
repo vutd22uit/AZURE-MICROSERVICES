@@ -1,0 +1,18 @@
+{
+  "name": "ecommerce-scripts",
+  "version": "1.0.0",
+  "description": "Data generation and testing scripts for E-Commerce Cloud System",
+  "scripts": {
+    "seed": "node seed-data.js",
+    "seed-simple": "node seed-data-simple.js",
+    "test-connection": "node test-connection.js",
+    "continuous-orders": "node continuous-orders.js",
+    "verify-pipeline": "node verify-pipeline.js"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.0.0",
+    "@faker-js/faker": "^8.3.1",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1"
+  }
+}
