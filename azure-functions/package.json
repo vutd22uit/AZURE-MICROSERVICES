@@ -1,0 +1,17 @@
+{
+  "name": "ecommerce-azure-functions",
+  "version": "1.0.0",
+  "description": "Azure Functions for E-Commerce Cloud-Native System",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.0.0",
+    "@sendgrid/mail": "^8.1.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@azure/functions": "^4.0.0"
+  }
+}
