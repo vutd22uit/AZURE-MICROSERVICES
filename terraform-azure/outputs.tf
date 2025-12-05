@@ -171,7 +171,7 @@ output "synapse_sql_pool_name" {
 
 output "synapse_connection_string" {
   description = "Synapse connection string"
-  value       = "Server=tcp:${azurerm_synapse_workspace.synapse.name}.sql.azuresynapse.net,1433;Database=ecommercedw;User ID=${var.synapse_admin_username};Password=${var.synapse_admin_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+  value       = "Server=tcp:${azurerm_synapse_workspace.synapse.name}.sql.azuresynapse.net,1433;Database=${azurerm_synapse_sql_pool.pool.name};User ID=${var.synapse_admin_username};Password=${var.synapse_admin_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
   sensitive   = true
 }
 
@@ -192,16 +192,18 @@ output "data_factory_id" {
 # ================================================================
 # Power BI Embedded
 # ================================================================
+# Note: Power BI Embedded resource is commented out in main.tf
+# Create manually via Azure Portal or CLI
 
-output "powerbi_embedded_id" {
-  description = "Power BI Embedded capacity ID"
-  value       = azurerm_powerbi_embedded.powerbi.id
-}
+# output "powerbi_embedded_id" {
+#   description = "Power BI Embedded capacity ID"
+#   value       = azurerm_powerbi_embedded.powerbi.id
+# }
 
-output "powerbi_embedded_name" {
-  description = "Power BI Embedded capacity name"
-  value       = azurerm_powerbi_embedded.powerbi.name
-}
+# output "powerbi_embedded_name" {
+#   description = "Power BI Embedded capacity name"
+#   value       = azurerm_powerbi_embedded.powerbi.name
+# }
 
 # ================================================================
 # Redis Cache (if enabled)
@@ -232,10 +234,11 @@ output "summary" {
     postgres_server     = azurerm_postgresql_flexible_server.postgres.fqdn
     cosmos_endpoint     = azurerm_cosmosdb_account.cosmos.endpoint
     synapse_workspace   = azurerm_synapse_workspace.synapse.name
+    synapse_sql_pool    = azurerm_synapse_sql_pool.pool.name
     data_factory        = azurerm_data_factory.adf.name
-    powerbi_capacity    = azurerm_powerbi_embedded.powerbi.name
     payment_function    = azurerm_linux_function_app.payment.default_hostname
     email_function      = azurerm_linux_function_app.email.default_hostname
+    # powerbi_capacity  = "Create manually via Azure Portal or CLI"
   }
 }
 

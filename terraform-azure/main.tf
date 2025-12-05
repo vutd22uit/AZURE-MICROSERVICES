@@ -439,26 +439,38 @@ resource "azurerm_data_factory_linked_service_cosmosdb" "cosmos" {
   database          = azurerm_cosmosdb_sql_database.ordersdb.name
 }
 
-# Linked Service - Synapse
-resource "azurerm_data_factory_linked_service_synapse" "synapse" {
+# Linked Service - Synapse (Azure SQL Database type for Synapse SQL Pool)
+resource "azurerm_data_factory_linked_service_azure_sql_database" "synapse" {
   name              = "SynapseLinkedService"
   data_factory_id   = azurerm_data_factory.adf.id
-  connection_string = "Server=tcp:${azurerm_synapse_workspace.synapse.name}.sql.azuresynapse.net,1433;Database=ecommercedw;User ID=${var.synapse_admin_username};Password=${var.synapse_admin_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+  connection_string = "Server=tcp:${azurerm_synapse_workspace.synapse.name}.sql.azuresynapse.net,1433;Database=${azurerm_synapse_sql_pool.pool.name};User ID=${var.synapse_admin_username};Password=${var.synapse_admin_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
 }
 
 # ================================================================
 # Power BI Embedded
 # ================================================================
+# Note: Power BI Embedded capacities are created through Azure Portal or PowerShell
+# Terraform support is limited. Use Azure Portal to create Power BI Embedded capacity
+# or use the azurerm_powerbi_embedded resource if available in your provider version
 
-resource "azurerm_powerbi_embedded" "powerbi" {
-  name                = "${var.project_name}-powerbi"
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
-  sku                 = var.powerbi_sku
-  administrators      = [var.powerbi_admin_email]
+# Placeholder for Power BI Embedded (create manually via Azure Portal)
+# resource "azurerm_powerbi_embedded" "powerbi" {
+#   name                = "${var.project_name}-powerbi"
+#   location            = azurerm_resource_group.main.location
+#   resource_group_name = azurerm_resource_group.main.name
+#   sku                 = var.powerbi_sku
+#   administrators      = [var.powerbi_admin_email]
+#   tags                = var.tags
+# }
 
-  tags = var.tags
-}
+# Alternative: Create via Azure CLI after Terraform apply
+# az powerbi embedded-capacity create \
+#   --resource-group ecommerce-cloud-rg \
+#   --name ecommerce-cloud-powerbi \
+#   --location "Southeast Asia" \
+#   --sku-name A1 \
+#   --sku-tier PBIE_Azure \
+#   --administration-members "your-email@example.com"
 
 # ================================================================
 # Azure Redis Cache (optional - for caching)
